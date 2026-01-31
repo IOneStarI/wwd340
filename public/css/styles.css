@@ -303,6 +303,90 @@ a {
 }
 
 
+/* ===== Inventory Management ===== */
+
+.inventory-management {
+    max-width: 720px;
+    margin: 1.5rem auto 2rem;
+    padding: 1.5rem;
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+    border: 1px solid #cfe6f2;
+    text-align: center;
+}
+
+.inventory-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+
+/* ===== Inventory Forms ===== */
+
+.inventory-form-section {
+    max-width: 720px;
+    margin: 1.5rem auto 2rem;
+    padding: 1.5rem;
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+    border: 1px solid #cfe6f2;
+}
+
+.inventory-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.inventory-form label {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.inventory-form input,
+.inventory-form textarea,
+.inventory-form select {
+    padding: 0.6rem 0.75rem;
+    border: 1px solid #b8c8d0;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.inventory-form input:required:valid:not(:placeholder-shown),
+.inventory-form textarea:required:valid:not(:placeholder-shown),
+.inventory-form select:required:valid {
+    border-color: #2e8b57;
+    box-shadow: 0 0 0 2px rgba(46, 139, 87, 0.15);
+    background-color: #eaf7ef;
+}
+
+.inventory-form input:required:invalid:not(:placeholder-shown),
+.inventory-form textarea:required:invalid:not(:placeholder-shown),
+.inventory-form select:required:invalid:focus {
+    border-color: #c0392b;
+    box-shadow: 0 0 0 2px rgba(192, 57, 43, 0.15);
+    background-color: #fdecea;
+}
+
+.inventory-form input:required:invalid:focus,
+.inventory-form textarea:required:invalid:focus,
+.inventory-form select:required:invalid:focus {
+    outline: none;
+}
+
+.inventory-form .btn-primary {
+    width: 100%;
+}
+
+.form-help {
+    margin: -0.25rem 0 0;
+    font-size: 0.95rem;
+    color: #1a4aa1;
+}
+
+
 /* ===== Account Login ===== */
 
 .account-login {
@@ -474,5 +558,9 @@ a {
     .vehicle-info .vehicle-title,
     .vehicle-info .vehicle-price {
         display: block;
+    }
+    .inventory-actions {
+        flex-direction: row;
+        justify-content: center;
     }
 }

@@ -1,0 +1,128 @@
+<h1><%- title %></h1>
+
+<%- messages() %>
+
+<% if (errors) { %>
+  <ul class="notice">
+    <% errors.array().forEach(error => { %>
+      <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+<% } %>
+
+<section class="inventory-form-section">
+  <form class="inventory-form" action="/inv/add-inventory" method="post">
+    <label for="classificationList">Classification</label>
+    <%- classificationList %>
+
+    <label for="inv_make">Make</label>
+    <input
+      type="text"
+      id="inv_make"
+      name="inv_make"
+      required
+      minlength="3"
+      pattern="^[A-Za-z0-9\s'-]+$"
+      title="Use letters, numbers, spaces, hyphens, and apostrophes only."
+      placeholder="Min of 3 characters"
+      value="<%= locals.inv_make %>"
+    >
+
+    <label for="inv_model">Model</label>
+    <input
+      type="text"
+      id="inv_model"
+      name="inv_model"
+      required
+      minlength="3"
+      pattern="^[A-Za-z0-9\s'-]+$"
+      title="Use letters, numbers, spaces, hyphens, and apostrophes only."
+      placeholder="Min of 3 characters"
+      value="<%= locals.inv_model %>"
+    >
+
+    <label for="inv_year">Year</label>
+    <input
+      type="number"
+      id="inv_year"
+      name="inv_year"
+      required
+      min="1900"
+      max="2099"
+      placeholder="4-digit year"
+      value="<%= locals.inv_year %>"
+    >
+
+    <label for="inv_description">Description</label>
+    <textarea
+      id="inv_description"
+      name="inv_description"
+      required
+      minlength="10"
+      rows="4"
+      placeholder="Provide a short description"
+    ><%= locals.inv_description %></textarea>
+
+    <label for="inv_image">Image Path</label>
+    <input
+      type="text"
+      id="inv_image"
+      name="inv_image"
+      required
+      pattern="^/images/vehicles/.+\.(jpg|jpeg|png|gif)$"
+      title="Use a path like /images/vehicles/filename.jpg"
+      placeholder="/images/vehicles/no-image.png"
+      value="<%= locals.inv_image ? locals.inv_image : '/images/vehicles/no-image.png' %>"
+    >
+
+    <label for="inv_thumbnail">Thumbnail Path</label>
+    <input
+      type="text"
+      id="inv_thumbnail"
+      name="inv_thumbnail"
+      required
+      pattern="^/images/vehicles/.+\.(jpg|jpeg|png|gif)$"
+      title="Use a path like /images/vehicles/filename-tn.jpg"
+      placeholder="/images/vehicles/no-image-tn.png"
+      value="<%= locals.inv_thumbnail ? locals.inv_thumbnail : '/images/vehicles/no-image-tn.png' %>"
+    >
+
+    <label for="inv_price">Price</label>
+    <input
+      type="number"
+      id="inv_price"
+      name="inv_price"
+      required
+      min="0"
+      step="1"
+      placeholder="Decimal or integer"
+      value="<%= locals.inv_price %>"
+    >
+
+    <label for="inv_miles">Miles</label>
+    <input
+      type="number"
+      id="inv_miles"
+      name="inv_miles"
+      required
+      min="0"
+      step="1"
+      placeholder="Digits only"
+      value="<%= locals.inv_miles %>"
+    >
+
+    <label for="inv_color">Color</label>
+    <input
+      type="text"
+      id="inv_color"
+      name="inv_color"
+      required
+      pattern="^[A-Za-z\s'-]+$"
+      title="Use letters, spaces, hyphens, and apostrophes only."
+      placeholder="Color name"
+      value="<%= locals.inv_color %>"
+    >
+
+    <button class="btn-primary" type="submit">Add Inventory Item</button>
+  </form>
+</section>
