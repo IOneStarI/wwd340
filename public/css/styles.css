@@ -60,6 +60,12 @@ a {
     color: var( --primary-color);
 }
 
+.account-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
 
 /* ===== Navigation ===== */
 
@@ -150,6 +156,15 @@ a {
 
 .btn-primary:hover {
     background-color: var( --hover);
+}
+
+.btn-primary:disabled,
+.btn-primary[disabled] {
+    background-color: #9bb4d8;
+    color: #f2f6fb;
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.75;
 }
 
 .hero-image {
@@ -320,6 +335,40 @@ a {
     flex-direction: column;
     gap: 0.75rem;
     margin-top: 1rem;
+}
+
+#inventoryDisplay {
+    width: 100%;
+    margin-top: 1rem;
+    border-collapse: collapse;
+    background-color: #ffffff;
+}
+
+#inventoryDisplay th,
+#inventoryDisplay td {
+    border: 1px solid #cfe6f2;
+    padding: 0.65rem 0.75rem;
+    text-align: left;
+}
+
+#inventoryDisplay thead th {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+#inventoryDisplay tbody tr:nth-child(even) {
+    background-color: #f7fbfd;
+}
+
+#inventoryDisplay a {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#inventoryDisplay a:hover {
+    color: var(--hover);
+    text-decoration: underline;
 }
 
 
