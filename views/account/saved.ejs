@@ -1,0 +1,31 @@
+<h1>Wish List</h1>
+
+<%- messages() %>
+
+<% if (!locals.savedVehicles || locals.savedVehicles.length === 0) { %>
+  <p class="notice">You do not have any vehicles in your wish list yet.</p>
+<% } else { %>
+  <ul id="inv-display">
+    <% locals.savedVehicles.forEach(vehicle => { %>
+      <li>
+        <a href="/inv/detail/<%= vehicle.inv_id %>" title="View <%= vehicle.inv_make %> <%= vehicle.inv_model %> details">
+          <img src="<%= vehicle.inv_thumbnail %>" alt="Image of <%= vehicle.inv_make %> <%= vehicle.inv_model %>">
+        </a>
+        <div class="namePrice">
+          <hr>
+          <h2>
+            <a href="/inv/detail/<%= vehicle.inv_id %>" title="View <%= vehicle.inv_make %> <%= vehicle.inv_model %> details">
+              <%= vehicle.inv_make %> <%= vehicle.inv_model %>
+            </a>
+          </h2>
+          <span>$<%= new Intl.NumberFormat("en-US").format(vehicle.inv_price) %></span>
+        </div>
+        <form action="/saved/remove" method="post">
+          <input type="hidden" name="inv_id" value="<%= vehicle.inv_id %>">
+          <input type="hidden" name="returnTo" value="/saved">
+          <button class="btn-primary" type="submit">Remove from Wish List</button>
+        </form>
+      </li>
+    <% }) %>
+  </ul>
+<% } %>

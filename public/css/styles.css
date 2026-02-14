@@ -152,6 +152,8 @@ a {
     text-decoration: none;
     font-weight: bold;
     border-radius: 4px;
+    border: 2px solid var(--primary-color);
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .btn-primary:hover {
@@ -165,6 +167,12 @@ a {
     cursor: not-allowed;
     box-shadow: none;
     opacity: 0.75;
+}
+
+.btn-primary.is-disabled {
+    background-color: #9bb4d8;
+    border-color: #9bb4d8;
+    color: #f2f6fb;
 }
 
 .hero-image {
@@ -268,10 +276,20 @@ a {
     color: #1a4aa1;
 }
 
+.namePrice a.btn-primary {
+    color: #ffffff;
+}
+
 .namePrice span {
     display: block;
     font-size: 1.2rem;
     font-weight: bold;
+}
+
+.wishlist-status {
+    margin: 0.8rem 0 0;
+    font-weight: bold;
+    color: #1d6f42;
 }
 
 .vehicle-detail {

@@ -60,3 +60,17 @@ account_firstname: Manager
 account_lastname: User
 account_email: manager@340.edu
 account_password: I@mAnAdm!n1strat0r1
+
+## Additional Enhancement: Saved Vehicles
+
+This project includes a "Saved Vehicles" feature that lets logged-in users save inventory items to a personal list.
+
+### Database setup
+
+Run the SQL in `database/saved-vehicle.sql` against your database to create the `saved_vehicle` table.
+
+### Feature behavior
+
+- On a vehicle detail page, logged-in users can click **Save Vehicle**.
+- Saved vehicles can be viewed at `/saved` or from Account Management.
+- Users can remove vehicles from their saved list from either the detail page or saved list page.

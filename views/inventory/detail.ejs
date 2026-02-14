@@ -2,4 +2,27 @@
     <%= title %>
 </h1>
 
+<%- messages() %>
+
 <%- vehicleHTML %>
+
+<section class="saved-actions">
+  <% if (locals.loggedin) { %>
+    <% if (locals.isSaved) { %>
+      <form action="/saved/remove" method="post">
+        <input type="hidden" name="inv_id" value="<%= locals.inv_id %>">
+        <input type="hidden" name="returnTo" value="/inv/detail/<%= locals.inv_id %>">
+        <button class="btn-primary" type="submit">Remove from Wish List</button>
+      </form>
+    <% } else { %>
+      <form action="/saved/add" method="post">
+        <input type="hidden" name="inv_id" value="<%= locals.inv_id %>">
+        <input type="hidden" name="returnTo" value="/inv/detail/<%= locals.inv_id %>">
+        <button class="btn-primary" type="submit">Add to Wish List</button>
+      </form>
+    <% } %>
+    <p><a href="/saved">View Wish List</a></p>
+  <% } else { %>
+    <p><a href="/account/login">Log in to add this vehicle to your wish list</a></p>
+  <% } %>
+</section>

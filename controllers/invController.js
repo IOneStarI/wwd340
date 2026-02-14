@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model")
+const savedModel = require("../models/saved-model")
 const utilities = require("../utilities/")
 
 const invCont = {}
@@ -25,7 +26,24 @@ invCont.buildManagement = async function(req, res, next) {
 invCont.buildByClassificationId = async function(req, res, next) {
     const classification_id = req.params.classificationId
     const data = await invModel.getInventoryByClassificationId(classification_id)
-    const grid = await utilities.buildClassificationGrid(data)
+    let vehicles = data
+
+    if (res.locals.loggedin) {
+        try {
+            const accountId = parseInt(res.locals.accountData.account_id, 10)
+            if (Number.isInteger(accountId)) {
+                const savedInvIds = await savedModel.getSavedInvIdsByAccountId(accountId)
+                const savedSet = new Set(savedInvIds)
+                vehicles = data.map((vehicle) => ({
+                    ...vehicle,
+                    is_saved: savedSet.has(vehicle.inv_id)
+                }))
+            }
+        } catch (error) {
+            vehicles = data
+        }
+    }
+    const grid = await utilities.buildClassificationGrid(vehicles)
     let nav = await utilities.getNav()
     const className = data[0].classification_name
     res.render("./inventory/classification", {
@@ -40,11 +58,23 @@ invCont.buildDetail = async function(req, res) {
     const data = await invModel.getVehicleById(inv_id)
     const nav = await utilities.getNav()
     const vehicleHTML = utilities.buildVehicleDetail(data)
+    let isSaved = false
+
+    if (res.locals.loggedin) {
+        try {
+            const accountId = parseInt(res.locals.accountData.account_id)
+            isSaved = await savedModel.isVehicleSaved(accountId, parseInt(inv_id))
+        } catch (error) {
+            isSaved = false
+        }
+    }
 
     res.render("inventory/detail", {
         title: `${data.inv_make} ${data.inv_model}`,
         nav,
-        vehicleHTML
+        vehicleHTML,
+        inv_id: data.inv_id,
+        isSaved
     })
 }
 

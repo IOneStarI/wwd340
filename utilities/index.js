@@ -10,6 +10,7 @@ Util.getNav = async function(req, res, next) {
     let data = await invModel.getClassifications()
     let list = "<ul>"
     list += '<li><a href="/" title="Home page">Home</a></li>'
+    list += '<li><a href="/saved" title="View your wish list">Wish List</a></li>'
     data.rows.forEach((row) => {
         list += "<li>"
         list +=
@@ -71,6 +72,12 @@ Util.buildClassificationGrid = async function(data) {
             grid += '</h2>'
             grid += '<span>$' +
                 new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</span>'
+            if (vehicle.is_saved) {
+                grid += '<p class="wishlist-status">Already in Wish List</p>'
+                grid += '<p><a class="btn-primary is-disabled" href="/saved">View Wish List</a></p>'
+            } else {
+                grid += '<p><a class="btn-primary" href="../../inv/detail/' + vehicle.inv_id + '">Add to Wish List</a></p>'
+            }
             grid += '</div>'
             grid += '</li>'
         })

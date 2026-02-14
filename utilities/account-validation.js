@@ -103,7 +103,9 @@ const accountModel = require("../models/account-model")
         .normalizeEmail()
         .withMessage("A valid email is required.")
         .custom(async (account_email, { req }) => {
-          const account = await accountModel.getAccountById(req.body.account_id)
+          const accountId = req.body?.account_id
+          if (!accountId) return true
+          const account = await accountModel.getAccountById(accountId)
           if (account && account.account_email !== account_email) {
             const emailExists = await accountModel.checkExistingEmail(account_email)
             if (emailExists) {
@@ -137,7 +139,8 @@ const accountModel = require("../models/account-model")
  * Check data and return errors or continue to registration
  * ***************************** */
 validate.checkRegData = async (req, res, next) => {
-  const { account_firstname, account_lastname, account_email } = req.body
+  const bodyData = req.body || {}
+  const { account_firstname, account_lastname, account_email } = bodyData
   let errors = []
   errors = validationResult(req)
   if (!errors.isEmpty()) {
@@ -159,7 +162,8 @@ validate.checkRegData = async (req, res, next) => {
  * Check login data and return errors or continue to login
  * ***************************** */
 validate.checkLoginData = async (req, res, next) => {
-  const { account_email } = req.body
+  const bodyData = req.body || {}
+  const { account_email } = bodyData
   let errors = []
   errors = validationResult(req)
   if (!errors.isEmpty()) {
@@ -179,7 +183,8 @@ validate.checkLoginData = async (req, res, next) => {
  * Check update account data
  * ***************************** */
 validate.checkUpdateData = async (req, res, next) => {
-  const { account_id, account_firstname, account_lastname, account_email } = req.body
+  const bodyData = req.body || {}
+  const { account_id, account_firstname, account_lastname, account_email } = bodyData
   let errors = []
   errors = validationResult(req)
   if (!errors.isEmpty()) {
@@ -202,7 +207,8 @@ validate.checkUpdateData = async (req, res, next) => {
  * Check update password data
  * ***************************** */
 validate.checkPasswordUpdate = async (req, res, next) => {
-  const { account_id } = req.body
+  const bodyData = req.body || {}
+  const { account_id } = bodyData
   let errors = []
   errors = validationResult(req)
   if (!errors.isEmpty()) {
